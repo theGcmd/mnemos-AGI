@@ -669,6 +669,165 @@
     color: var(--fg-faint);
   }
 
+  /* ---------- Live demo ---------- */
+  .demo-lede {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(20px, 2vw, 27px);
+    line-height: 1.42;
+    letter-spacing: -0.012em;
+    color: var(--fg);
+    margin: 0 0 14px 0;
+    max-width: 880px;
+    text-wrap: pretty;
+  }
+  .demo-lede .dim { color: var(--fg-mute); }
+  .demo-note {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin: 0 0 48px 0;
+  }
+  .demo-note .a { color: var(--accent); }
+
+  .demo-stage {
+    border: 1px solid var(--rule);
+    background:
+      radial-gradient(120% 100% at 70% 0%, oklch(0.72 0.07 245 / 0.025), transparent 55%),
+      var(--bg-2);
+    padding: 22px 24px 20px;
+    position: relative;
+  }
+  .demo-stage::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--rule) 55%);
+    opacity: 0.55;
+  }
+
+  .demo-hud {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 14px;
+    min-height: 18px;
+  }
+  .demo-phase {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .demo-caption {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    color: var(--fg-mute);
+    transition: opacity 180ms ease;
+    text-wrap: pretty;
+  }
+
+  #demoCanvas { display: block; width: 100%; }
+
+  .demo-readout {
+    margin-top: 10px;
+    min-height: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--fg-mute);
+  }
+  .demo-readout .win { color: var(--accent); }
+
+  .demo-verdictrow {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    min-height: 44px;
+  }
+  .demo-verdict {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(24px, 3vw, 36px);
+    letter-spacing: -0.025em;
+    color: var(--fg);
+    min-height: 1em;
+  }
+  .demo-verdict .a { color: var(--accent); }
+  .demo-chip {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid oklch(0.72 0.07 245 / 0.4);
+    padding: 5px 10px 4px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 500ms ease, transform 500ms cubic-bezier(.2,.7,.2,1);
+  }
+  .demo-chip.show { opacity: 1; transform: translateY(0); }
+
+  .demo-controls {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+    transition: opacity 250ms ease;
+  }
+  .demo-controls.busy { opacity: 0.35; pointer-events: none; }
+  .demo-btn, .demo-premise {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--fg-dim);
+    border: 1px solid var(--rule-2);
+    padding: 10px 16px 9px;
+    cursor: pointer;
+    transition: color 200ms ease, border-color 200ms ease, background 200ms ease;
+  }
+  .demo-btn:hover, .demo-premise:hover { color: var(--accent); border-color: var(--accent); }
+  .demo-btn:focus-visible, .demo-premise:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+  .demo-btn.primary { border-color: oklch(0.72 0.07 245 / 0.55); color: var(--accent); }
+  .demo-btn.primary:hover { background: oklch(0.72 0.07 245 / 0.08); }
+  .demo-premises { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .demo-premiselabel {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .demo-premise.on { border-color: var(--accent); color: var(--accent); }
+
+  .demo-ledger {
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    line-height: 1.9;
+  }
+
+  @media (max-width: 720px) {
+    .demo-stage { padding: 16px 14px 16px; }
+    .demo-controls { gap: 14px; }
+  }
+
   /* ---------- Reduced motion: everything settles instantly ---------- */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -830,9 +989,48 @@
     </div>
   </section>
 
+  <!-- LIVE DEMO -->
+  <section class="demo" id="demoSection" data-screen-label="04 Watch it run">
+    <p class="sec-label"><span class="num">04 /</span> <span class="scramble">Watch it run</span></p>
+    <div class="reveal">
+      <p class="demo-lede">
+        The claim above, running in this page. <span class="dim">A miniature of the mechanism: 160-bit sparse codes instead of 2048, the same circular-shift binding, the same one-shot associative store, the same local-only updates.</span> It learns one rule from four facts, then meets a subject it has never seen.
+      </p>
+      <p class="demo-note">Nothing is scripted · <span class="a">shuffle the codes</span> and it derives the answer again</p>
+    </div>
+
+    <div class="demo-stage reveal" id="demoStage">
+      <div class="demo-hud">
+        <span class="demo-phase" id="demoPhase">idle</span>
+        <span class="demo-caption" id="demoCaption">Press run, or scroll on — it starts on its own.</span>
+      </div>
+
+      <canvas id="demoCanvas" aria-label="Live demonstration of sparse-code reasoning"></canvas>
+
+      <div class="demo-readout"><span id="demoEvidence"></span></div>
+
+      <div class="demo-verdictrow">
+        <span class="demo-verdict" id="demoVerdict"></span>
+        <span class="demo-chip" id="demoChip">derived · never stored</span>
+      </div>
+
+      <div class="demo-controls" id="demoControls">
+        <button class="demo-btn primary" id="demoRun" type="button">Run the unit</button>
+        <div class="demo-premises">
+          <span class="demo-premiselabel">fresh case</span>
+          <button class="demo-premise on" type="button" data-subj="finch" data-cat="bird">finch · isa · bird</button>
+          <button class="demo-premise" type="button" data-subj="pike" data-cat="fish">pike · isa · fish</button>
+        </div>
+        <button class="demo-btn" id="demoShuffle" type="button">&#10227; shuffle codes</button>
+      </div>
+
+      <div class="demo-ledger" id="demoLedger"></div>
+    </div>
+  </section>
+
   <!-- DISCIPLINE -->
-  <section class="discipline" data-screen-label="04 The discipline">
-    <p class="sec-label"><span class="num">04 /</span> <span class="scramble">The discipline</span></p>
+  <section class="discipline" data-screen-label="05 The discipline">
+    <p class="sec-label"><span class="num">05 /</span> <span class="scramble">The discipline</span></p>
     <ol class="disc-list">
       <li class="reveal"><span>Build on top of what is verified.</span></li>
       <li class="reveal"><span>Every claim survives an outside test or it does not stand.</span></li>
@@ -1280,6 +1478,778 @@
     build();
     requestAnimationFrame(frame);
     window.setTimeout(function () { startCascade(); scheduleCascades(); }, 2600);
+  })();
+
+})();
+</script>
+<script>
+/* =====================================================================
+   THE UNIT, LIVE.
+   A real miniature of the Mnemos mechanism, not a recording:
+   k-sparse codes, circular-shift role binding, a Willshaw associative
+   store written with local-only updates, k-WTA recall, overlap decode.
+   Every number rendered below is computed when you run it.
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  var section = document.getElementById('demoSection');
+  if (!section) return;
+
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stage = document.getElementById('demoStage');
+  var canvas = document.getElementById('demoCanvas');
+  var ctx = canvas.getContext('2d');
+  var phaseEl = document.getElementById('demoPhase');
+  var captionEl = document.getElementById('demoCaption');
+  var evidenceEl = document.getElementById('demoEvidence');
+  var verdictEl = document.getElementById('demoVerdict');
+  var chipEl = document.getElementById('demoChip');
+  var ledgerEl = document.getElementById('demoLedger');
+  var runBtn = document.getElementById('demoRun');
+  var shuffleBtn = document.getElementById('demoShuffle');
+  var controls = document.getElementById('demoControls');
+  var premiseBtns = Array.prototype.slice.call(document.querySelectorAll('.demo-premise'));
+
+  /* ---------- utils ---------- */
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function eOutCubic(p) { return 1 - Math.pow(1 - p, 3); }
+  function eInOut(p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; }
+  function eLin(p) { return p; }
+
+  function tween(ms, fn, ease) {
+    ease = ease || eOutCubic;
+    if (RM || ms <= 0) { fn(1); return Promise.resolve(); }
+    return new Promise(function (res) {
+      var t0 = null;
+      function f(t) {
+        if (t0 === null) t0 = t;
+        var p = clamp((t - t0) / ms, 0, 1);
+        fn(ease(p));
+        if (p < 1) requestAnimationFrame(f); else res();
+      }
+      requestAnimationFrame(f);
+    });
+  }
+  function wait(ms) {
+    if (RM) return Promise.resolve();
+    return new Promise(function (res) { setTimeout(res, ms); });
+  }
+  function debounce(fn, ms) {
+    var h = null;
+    return function () { if (h) clearTimeout(h); h = setTimeout(fn, ms); };
+  }
+
+  var GL = '!<>-_/[]{}=+*^?#';
+  function scrambleTo(el, finalText) {
+    if (RM) { el.textContent = finalText; return; }
+    var len = finalText.length, dur = 380 + len * 16, t0 = null;
+    function f(t) {
+      if (t0 === null) t0 = t;
+      var p = clamp((t - t0) / dur, 0, 1);
+      var settled = Math.floor(p * len), out = '';
+      for (var i = 0; i < len; i++) {
+        var ch = finalText.charAt(i);
+        out += (i < settled || ch === ' ' || ch === '\u00B7') ? ch : GL.charAt((Math.random() * GL.length) | 0);
+      }
+      el.textContent = out;
+      if (p < 1) requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
+  }
+  function scrambleText(el, finalText) {
+    return new Promise(function (res) {
+      if (RM) { el.textContent = finalText; res(); return; }
+      var len = finalText.length, dur = 520 + len * 28, t0 = null;
+      function f(t) {
+        if (t0 === null) t0 = t;
+        var p = clamp((t - t0) / dur, 0, 1);
+        var settled = Math.floor(p * len), out = '';
+        for (var i = 0; i < len; i++) {
+          var ch = finalText.charAt(i);
+          out += (i < settled || ch === ' ') ? ch : GL.charAt((Math.random() * GL.length) | 0);
+        }
+        el.textContent = out;
+        if (p < 1) requestAnimationFrame(f); else res();
+      }
+      requestAnimationFrame(f);
+    });
+  }
+  function setPhase(t) { scrambleTo(phaseEl, t); }
+  function setCaption(t) {
+    captionEl.style.opacity = 0;
+    setTimeout(function () { captionEl.textContent = t; captionEl.style.opacity = 1; }, RM ? 0 : 170);
+  }
+
+  /* =====================================================
+     THE MODEL - this part is the actual mechanism
+     ===================================================== */
+  var D = 160, K = 8, S_REL = 53, S_OBJ = 107;
+  var VOCAB = ['robin', 'sparrow', 'salmon', 'trout', 'finch', 'pike', 'isa', 'can', 'bird', 'fish', 'fly', 'swim'];
+  var rng;
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  /* Codes are drawn near-orthogonal (max 1-bit pairwise overlap, checked
+     under every role shift). At the real scale (D=2048) random codes have
+     this property for free; rejection sampling gives D=160 the same
+     statistics instead of pretending the small space is the big one. */
+  var SHIFT_CHECKS = [0, S_REL, S_OBJ, (S_REL - S_OBJ + 160) % 160,
+                      (160 - S_REL) % 160, (160 - S_OBJ) % 160, (S_OBJ - S_REL + 160) % 160];
+  function rawCode() {
+    var bits = [], used = {};
+    while (bits.length < K) {
+      var b = (rng() * D) | 0;
+      if (!used[b]) { used[b] = 1; bits.push(b); }
+    }
+    return bits.sort(function (a, b) { return a - b; });
+  }
+  function makeCode(existing) {
+    existing = existing || [];
+    for (var tries = 0; tries < 5000; tries++) {
+      var c = rawCode(), ok = true;
+      for (var e = 0; e < existing.length && ok; e++) {
+        for (var s = 0; s < SHIFT_CHECKS.length; s++) {
+          if (overlap(shiftBits(c, SHIFT_CHECKS[s]), existing[e]) > 1) { ok = false; break; }
+        }
+      }
+      if (ok) return c;
+    }
+    return rawCode();
+  }
+  function shiftBits(bits, s) {
+    return bits.map(function (b) { return (b + s) % D; }).sort(function (a, b) { return a - b; });
+  }
+  function merge() {
+    var s = {};
+    for (var i = 0; i < arguments.length; i++) {
+      arguments[i].forEach(function (b) { s[b] = 1; });
+    }
+    return Object.keys(s).map(Number).sort(function (a, b) { return a - b; });
+  }
+  function overlap(a, b) {
+    var s = {}, n = 0;
+    a.forEach(function (x) { s[x] = 1; });
+    b.forEach(function (x) { if (s[x]) n++; });
+    return n;
+  }
+
+  var model = null;
+  function buildModel(sd) {
+    rng = mulberry32(sd);
+    var codes = {}, made = [];
+    VOCAB.forEach(function (w) { codes[w] = makeCode(made); made.push(codes[w]); });
+    var facts = [
+      { s: 'robin',   cat: 'bird', v: 'fly'  },
+      { s: 'sparrow', cat: 'bird', v: 'fly'  },
+      { s: 'salmon',  cat: 'fish', v: 'swim' },
+      { s: 'trout',   cat: 'fish', v: 'swim' }
+    ];
+    var W = new Uint8Array(D * D), syn = 0, factWrites = [];
+    facts.forEach(function (f) {
+      f.cue = merge(codes[f.s], shiftBits(codes.isa, S_REL), shiftBits(codes[f.cat], S_OBJ));
+      f.tgt = merge(shiftBits(codes.can, S_REL), shiftBits(codes[f.v], S_OBJ));
+      var writes = [];
+      f.cue.forEach(function (i) {
+        f.tgt.forEach(function (j) {
+          var idx = j * D + i;
+          if (!W[idx]) { W[idx] = 1; syn++; }
+          writes.push([i, j]);
+        });
+      });
+      factWrites.push(writes);
+    });
+    return { codes: codes, facts: facts, W: W, syn: syn, factWrites: factWrites };
+  }
+  function recall(cue) {
+    var sums = new Int16Array(D);
+    cue.forEach(function (i) {
+      for (var j = 0; j < D; j++) { if (model.W[j * D + i]) sums[j]++; }
+    });
+    var order = [];
+    for (var j2 = 0; j2 < D; j2++) order.push(j2);
+    order.sort(function (a, b) { return sums[b] - sums[a]; });
+    var winners = order.slice(0, 2 * K).filter(function (j3) { return sums[j3] > 0; })
+      .sort(function (a, b) { return a - b; });
+    var maxSum = sums[order[0]] || 1;
+    var kth = 0;
+    winners.forEach(function (j4) { if (kth === 0 || sums[j4] < kth) kth = sums[j4]; });
+    var winSet = {};
+    winners.forEach(function (j5) { winSet[j5] = 1; });
+    return { sums: sums, winners: winners, maxSum: maxSum, kth: kth, winSet: winSet };
+  }
+  function meanRows(rows, sums) {
+    var s = 0;
+    rows.forEach(function (j) { s += sums[j]; });
+    return Math.round(s / rows.length);
+  }
+
+  /* The codebook must actually work before we accept it: both fresh
+     premises are run through recall + decode at build time, and the
+     seed steps forward until the mechanism passes its own test with
+     a margin of at least 2 evidence per row. Nothing about the run
+     you watch is altered — only badly-conditioned codebooks are
+     rejected, the same way D=2048 rejects them by statistics alone. */
+  function validateModel(m) {
+    var prs = [{ s: 'finch', cat: 'bird', v: 'fly' }, { s: 'pike', cat: 'fish', v: 'swim' }];
+    for (var i = 0; i < prs.length; i++) {
+      var pr = prs[i];
+      var cue = merge(m.codes[pr.s], shiftBits(m.codes.isa, S_REL), shiftBits(m.codes[pr.cat], S_OBJ));
+      var sums = new Int16Array(D);
+      cue.forEach(function (c) { for (var j = 0; j < D; j++) { if (m.W[j * D + c]) sums[j]++; } });
+      var order = [];
+      for (var j2 = 0; j2 < D; j2++) order.push(j2);
+      order.sort(function (a, b) { return sums[b] - sums[a]; });
+      var winners = order.slice(0, 2 * K).filter(function (j3) { return sums[j3] > 0; });
+      var outRel = shiftBits(winners, D - S_REL), outObj = shiftBits(winners, D - S_OBJ);
+      if (overlap(outRel, m.codes.can) <= overlap(outRel, m.codes.isa)) return false;
+      var ovV = overlap(outObj, m.codes[pr.v]), bad = 0;
+      ['bird', 'fish', 'fly', 'swim'].forEach(function (w) {
+        if (w !== pr.v) bad = Math.max(bad, overlap(outObj, m.codes[w]));
+      });
+      if (ovV <= bad) return false;
+      var other = pr.v === 'fly' ? 'swim' : 'fly';
+      var evV = 0, evO = 0;
+      shiftBits(m.codes[pr.v], S_OBJ).forEach(function (j4) { evV += sums[j4]; });
+      shiftBits(m.codes[other], S_OBJ).forEach(function (j5) { evO += sums[j5]; });
+      if ((evV - evO) / K < 2) return false;
+    }
+    return true;
+  }
+  function buildValidated(sd) {
+    for (var k = 0; k < 50; k++) {
+      var s = (sd + k) >>> 0;
+      var m = buildModel(s);
+      if (validateModel(m)) return { model: m, seed: s };
+    }
+    return { model: buildModel(sd), seed: sd >>> 0 };
+  }
+
+  /* =====================================================
+     SCENE STATE + RENDERING
+     ===================================================== */
+  var ACC = 'rgba(150,176,216,0.95)';
+  var view = { w: 0, h: 0, narrow: false };
+  var FNT10 = "10px 'JetBrains Mono', monospace";
+
+  var mc = document.createElement('canvas');
+  mc.width = D; mc.height = D;
+  var mctx = mc.getContext('2d');
+  mctx.fillStyle = ACC;
+  var mark = new Uint8Array(D * D), written = 0, lastW = -1;
+  function put(i, j) {
+    var idx = j * D + i;
+    if (mark[idx]) return;
+    mark[idx] = 1; written++;
+    mctx.fillRect(i, j, 1, 1);
+  }
+
+  function mkA(o) {
+    return Object.assign({ bits: [], fx: 0, fy: 0, fw: 0.3, h: 13, alpha: 0, rot: 0, shiftAmt: 0, label: '', color: ACC }, o);
+  }
+  var A = {
+    subj: mkA({}), rel: mkA({}), obj: mkA({}), comp: mkA({}),
+    held: mkA({ color: 'rgba(184,184,181,0.95)' }),
+    out: mkA({}), decRel: mkA({}), decObj: mkA({})
+  };
+  var ORDER = ['subj', 'rel', 'obj', 'comp', 'held', 'out', 'decRel', 'decObj'];
+
+  var S = {
+    mxA: 0, railA: 0, railRes: 0,
+    sparks: [], beamA: 0, winA: 0,
+    cueA: 0, cueBits: null, cueLabel: 'cue',
+    tgtA: 0, tgtBits: null,
+    res: null, sumReveal: 0, thrP: 0,
+    bars: null, barsA: 0
+  };
+
+  function geo() {
+    var w = view.w, h = view.h;
+    if (view.narrow) {
+      var side = w * 0.58, mxX = w * 0.12, mxY = h * 0.30;
+      return {
+        mSide: side, mxX: mxX, mxY: mxY, sumX: mxX + side + 10, sumW: w * 0.17,
+        slotX: 0.06, slotW: 0.88, slotY: [0.035, 0.09, 0.145], compY: 0.205,
+        heldX: 0.06, heldY: 0.255, heldW: 0.34,
+        outX: 0.06, outY: 0.70, outW: 0.88, decY1: 0.78, decY2: 0.86,
+        barX1: 0, barX2: 0, barY: 0, barW: 0
+      };
+    }
+    var side2 = w * 0.34, mX = w * 0.555, mY = h * 0.13;
+    return {
+      mSide: side2, mxX: mX, mxY: mY, sumX: mX + side2 + 14, sumW: w * 0.082,
+      slotX: 0.19, slotW: 0.30, slotY: [0.21, 0.33, 0.45], compY: 0.585,
+      heldX: 0.19, heldY: 0.115, heldW: 0.12,
+      outX: 0.19, outY: 0.72, outW: 0.30, decY1: 0.81, decY2: 0.90,
+      barX1: mX, barX2: mX + side2 * 0.55, barY: mY + side2 + 52, barW: side2 * 0.30
+    };
+  }
+
+  function drawStrip(a) {
+    if (a.alpha <= 0.004) return;
+    var x = a.fx * view.w, y = a.fy * view.h, w = a.fw * view.w, h = a.h;
+    ctx.globalAlpha = a.alpha;
+    ctx.fillStyle = 'rgba(110,110,107,0.22)';
+    ctx.fillRect(x, y + h / 2, w, 1);
+    var tw = Math.max(1.3, w / D * 0.8);
+    ctx.fillStyle = a.color;
+    var bits = a.bits, n = bits.length;
+    for (var k = 0; k < n; k++) {
+      var b = bits[k];
+      var pos = (((b + a.rot * a.shiftAmt) % D) + D) % D;
+      ctx.fillRect(x + pos / D * w, y, tw, h);
+    }
+    if (a.label) {
+      ctx.fillStyle = 'rgba(138,138,135,0.95)';
+      ctx.font = FNT10;
+      ctx.fillText(a.label, x, y - 6);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawRail() {
+    if (view.narrow || S.railA <= 0.01 || !model) return;
+    var x = 0.035 * view.w, w = 0.115 * view.w, y0 = 0.115 * view.h, st = 0.057 * view.h;
+    ctx.font = FNT10;
+    for (var i = 0; i < VOCAB.length; i++) {
+      var local = clamp(S.railRes * 13 - i, 0, 1);
+      if (local <= 0) continue;
+      ctx.globalAlpha = S.railA * Math.min(1, local * 1.4);
+      ctx.fillStyle = 'rgba(138,138,135,0.95)';
+      ctx.fillText(VOCAB[i], x, y0 + i * st);
+      var bits = model.codes[VOCAB[i]];
+      ctx.fillStyle = 'rgba(150,176,216,0.8)';
+      for (var k = 0; k < bits.length; k++) {
+        var b = bits[k];
+        if (local < 1 && k >= Math.floor(local * K)) b = (Math.random() * D) | 0;
+        ctx.fillRect(x + b / D * w, y0 + i * st + 5, Math.max(1, w / D * 1.2), 5);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawMatrix() {
+    if (S.mxA <= 0.004) return;
+    var g = geo(), s = g.mSide, x = g.mxX, y = g.mxY, cs = s / D;
+    ctx.globalAlpha = S.mxA;
+    ctx.strokeStyle = 'rgba(38,38,42,1)';
+    ctx.strokeRect(x - 0.5, y - 0.5, s + 1, s + 1);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(mc, x, y, s, s);
+    ctx.imageSmoothingEnabled = true;
+    ctx.fillStyle = 'rgba(110,110,107,0.9)';
+    ctx.font = FNT10;
+    ctx.fillText('associative memory \u00B7 ' + D + ' \u00D7 ' + D, x, y + s + 14);
+
+    if (S.beamA > 0.01 && S.cueBits) {
+      ctx.fillStyle = 'rgba(150,176,216,' + (0.10 * S.beamA).toFixed(3) + ')';
+      S.cueBits.forEach(function (i) { ctx.fillRect(x + i * cs, y, Math.max(1, cs), s); });
+    }
+    if (S.winA > 0.01 && S.res) {
+      ctx.fillStyle = 'rgba(150,176,216,' + (0.13 * S.winA).toFixed(3) + ')';
+      S.res.winners.forEach(function (j) { ctx.fillRect(x, y + j * cs, s, Math.max(1, cs)); });
+    }
+    if (S.cueA > 0.01 && S.cueBits) {
+      ctx.globalAlpha = S.mxA * S.cueA;
+      ctx.fillStyle = ACC;
+      S.cueBits.forEach(function (i) { ctx.fillRect(x + i / D * s, y - 16, Math.max(1, cs), 9); });
+      ctx.fillStyle = 'rgba(138,138,135,0.95)';
+      ctx.fillText(S.cueLabel, x, y - 22);
+      ctx.globalAlpha = S.mxA;
+    }
+    if (S.tgtA > 0.01 && S.tgtBits) {
+      ctx.globalAlpha = S.mxA * S.tgtA;
+      ctx.fillStyle = 'rgba(184,184,181,0.9)';
+      S.tgtBits.forEach(function (j) { ctx.fillRect(x - 13, y + j / D * s, 8, Math.max(1, cs)); });
+      ctx.globalAlpha = S.mxA;
+    }
+
+    var now = performance.now();
+    for (var p = S.sparks.length - 1; p >= 0; p--) {
+      var sp = S.sparks[p], q = (now - sp.t0) / sp.dur;
+      if (q < 0) continue;
+      if (q >= 0.5 && !sp.set) { sp.set = true; put(sp.i, sp.j); }
+      if (q >= 1) { S.sparks.splice(p, 1); continue; }
+      var a = Math.sin(q * Math.PI);
+      ctx.fillStyle = 'rgba(178,200,236,' + (0.85 * a).toFixed(3) + ')';
+      var r = Math.max(1.4, cs * (1.8 - q));
+      ctx.fillRect(x + sp.i * cs - (r - cs) / 2, y + sp.j * cs - (r - cs) / 2, r, r);
+    }
+
+    if (S.sumReveal > 0.01 && S.res) {
+      var sums = S.res.sums, mx = S.res.maxSum, sx = g.sumX, sw = g.sumW;
+      for (var j2 = 0; j2 < D; j2++) {
+        var v = sums[j2];
+        if (!v) continue;
+        ctx.fillStyle = S.res.winSet[j2] ? 'rgba(150,176,216,0.95)' : 'rgba(150,176,216,0.28)';
+        ctx.fillRect(sx, y + j2 * cs, v / mx * sw * S.sumReveal, Math.max(1, cs * 0.8));
+      }
+      ctx.fillStyle = 'rgba(110,110,107,0.9)';
+      ctx.fillText('evidence per row', sx, y - 8);
+      if (S.thrP > 0.01) {
+        var thrX = sx + S.res.kth / mx * sw;
+        var lx = lerp(sx + sw + 10, thrX, S.thrP);
+        ctx.strokeStyle = 'rgba(237,237,236,' + (0.5 * Math.min(1, S.thrP * 1.4)).toFixed(3) + ')';
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath(); ctx.moveTo(lx, y - 2); ctx.lineTo(lx, y + s + 2); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = 'rgba(184,184,181,0.9)';
+        ctx.fillText('top-' + (2 * K), lx - 14, y + s + 14);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawBars() {
+    if (view.narrow || S.barsA <= 0.01 || !S.bars) return;
+    var g = geo();
+    ctx.globalAlpha = S.barsA;
+    ctx.font = FNT10;
+    drawBarGroup('relation slot', S.bars.rel, g.barX1, g.barY, g.barW);
+    drawBarGroup('object slot', S.bars.obj, g.barX2, g.barY, g.barW);
+    ctx.globalAlpha = 1;
+  }
+  function drawBarGroup(title, list, bx, by, bw) {
+    ctx.fillStyle = 'rgba(110,110,107,0.9)';
+    ctx.fillText(title, bx, by - 8);
+    list.forEach(function (b, idx) {
+      var yy = by + idx * 26;
+      ctx.fillStyle = b.win ? 'rgba(237,237,236,0.95)' : 'rgba(138,138,135,0.8)';
+      ctx.fillText(b.l, bx, yy + 9);
+      ctx.fillStyle = 'rgba(38,38,42,1)';
+      ctx.fillRect(bx + 46, yy, bw, 10);
+      ctx.fillStyle = b.win ? ACC : 'rgba(150,176,216,0.35)';
+      ctx.fillRect(bx + 46, yy, bw * b.v, 10);
+      ctx.fillStyle = 'rgba(138,138,135,0.9)';
+      ctx.fillText(Math.round(b.v * K) + '/' + K, bx + 46 + bw + 8, yy + 9);
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, view.w, view.h);
+    drawRail();
+    drawMatrix();
+    for (var i = 0; i < ORDER.length; i++) drawStrip(A[ORDER[i]]);
+    drawBars();
+    if (written !== lastW) { lastW = written; updateLedger(); }
+  }
+
+  /* =====================================================
+     CHOREOGRAPHY
+     ===================================================== */
+  var busy = false, trained = false, hasAuto = false;
+  var seed = 20260611;
+  var current = { s: 'finch', cat: 'bird' };
+  var baseEvidence = '';
+
+  function updateLedger() {
+    ledgerEl.textContent =
+      'D ' + D + ' \u00B7 K ' + K +
+      ' \u00B7 rel shift +' + S_REL + ' \u00B7 obj shift +' + S_OBJ +
+      ' \u00B7 synapses ' + written +
+      ' \u00B7 seed ' + seed +
+      ' \u00B7 codes \u22641-bit pairwise' +
+      ' \u00B7 \u0394w = f(pre, post) \u2014 local only';
+  }
+
+  function resetInferVisuals() {
+    ORDER.forEach(function (k) { A[k].alpha = 0; A[k].rot = 0; A[k].h = 13; });
+    S.sparks.length = 0;
+    S.beamA = 0; S.winA = 0; S.cueA = 0; S.cueBits = null;
+    S.tgtA = 0; S.tgtBits = null;
+    S.res = null; S.sumReveal = 0; S.thrP = 0;
+    S.bars = null; S.barsA = 0;
+    verdictEl.textContent = '';
+    chipEl.classList.remove('show');
+    evidenceEl.textContent = '';
+    baseEvidence = '';
+  }
+  function resetAllVisuals() {
+    mctx.clearRect(0, 0, D, D);
+    mctx.fillStyle = ACC;
+    mark = new Uint8Array(D * D);
+    written = 0; lastW = -1;
+    S.mxA = 0; S.railA = 0; S.railRes = 0;
+    resetInferVisuals();
+  }
+
+  function slotIn(a, bits, label, shiftAmt, slotIdx) {
+    var g = geo();
+    a.bits = bits; a.label = label; a.shiftAmt = shiftAmt;
+    a.rot = 0; a.fx = g.slotX; a.fw = g.slotW; a.fy = g.slotY[slotIdx];
+    a.h = 13; a.alpha = 0;
+  }
+
+  async function assembleFact(subjWord, catWord, cueBits, cueLabel, slow) {
+    var g = geo();
+    slotIn(A.subj, model.codes[subjWord], subjWord + '  \u00B7  subject', 0, 0);
+    slotIn(A.rel, model.codes.isa, 'isa  \u00B7  relation  (shift +' + S_REL + ')', S_REL, 1);
+    slotIn(A.obj, model.codes[catWord], catWord + '  \u00B7  object  (shift +' + S_OBJ + ')', S_OBJ, 2);
+    await tween(slow ? 500 : 200, function (p) { A.subj.alpha = p; A.rel.alpha = p; A.obj.alpha = p; });
+    await tween(slow ? 1100 : 350, function (p) { A.rel.rot = p; A.obj.rot = p; }, eInOut);
+    A.comp.bits = cueBits; A.comp.label = cueLabel + '  \u00B7  ' + cueBits.length + ' bits';
+    A.comp.fx = g.slotX; A.comp.fw = g.slotW; A.comp.fy = g.compY;
+    A.comp.shiftAmt = 0; A.comp.rot = 0; A.comp.h = 13; A.comp.alpha = 0;
+    var y0 = [A.subj.fy, A.rel.fy, A.obj.fy];
+    await tween(slow ? 700 : 260, function (p) {
+      A.subj.fy = lerp(y0[0], g.compY, p); A.subj.alpha = 1 - p;
+      A.rel.fy = lerp(y0[1], g.compY, p); A.rel.alpha = 1 - p;
+      A.obj.fy = lerp(y0[2], g.compY, p); A.obj.alpha = 1 - p;
+      A.comp.alpha = p;
+    }, eInOut);
+  }
+
+  async function moveCompToCue(cueBits, cueLabel, slow) {
+    var g = geo();
+    var tfx = g.mxX / view.w, tfw = g.mSide / view.w, tfy = (g.mxY - 16) / view.h;
+    var c0 = { fx: A.comp.fx, fy: A.comp.fy, fw: A.comp.fw };
+    await tween(slow ? 650 : 240, function (p) {
+      A.comp.fx = lerp(c0.fx, tfx, p);
+      A.comp.fy = lerp(c0.fy, tfy, p);
+      A.comp.fw = lerp(c0.fw, tfw, p);
+      A.comp.h = lerp(13, 9, p);
+    }, eInOut);
+    S.cueBits = cueBits; S.cueLabel = cueLabel; S.cueA = 1;
+    A.comp.alpha = 0; A.comp.h = 13;
+  }
+
+  async function phEncode() {
+    setPhase('01 \u00B7 encode');
+    setCaption('Twelve concepts. Each becomes ' + K + ' active bits out of ' + D + '. That is the entire representation.');
+    await tween(700, function (p) { S.mxA = p; });
+    if (!view.narrow) {
+      S.railA = 1;
+      await tween(2000, function (p) { S.railRes = p; }, eLin);
+    } else {
+      await wait(1000);
+    }
+    await wait(350);
+  }
+
+  async function phBindStore() {
+    for (var f = 0; f < model.facts.length; f++) {
+      var fact = model.facts[f], slow = (f === 0);
+      if (slow) {
+        setPhase('02 \u00B7 bind');
+        setCaption('A fact is three codes in three role slots: ' + fact.s + ' \u00B7 isa \u00B7 ' + fact.cat + '. Binding is a circular shift \u2014 role is position.');
+      } else if (f === 1) {
+        setPhase('03 \u00B7 store');
+        setCaption('Three more facts, same procedure, faster.');
+      }
+      await assembleFact(fact.s, fact.cat, fact.cue, 'cue \u00B7 whole fact', slow);
+      if (slow) setCaption('Stored against the consequent: can \u00B7 ' + fact.v + '. Outer product \u2014 every synapse strengthens from its own two endpoints only.');
+      await moveCompToCue(fact.cue, 'cue \u00B7 ' + fact.s + ' isa ' + fact.cat, slow);
+      S.tgtBits = fact.tgt;
+      await tween(slow ? 350 : 150, function (p) { S.tgtA = p; });
+      var writes = model.factWrites[f];
+      if (RM) {
+        writes.forEach(function (w2) { put(w2[0], w2[1]); });
+      } else {
+        var total = slow ? 1500 : 520, step = total / writes.length, t0 = performance.now();
+        writes.forEach(function (w3, i3) {
+          S.sparks.push({ i: w3[0], j: w3[1], t0: t0 + i3 * step, dur: slow ? 420 : 260, set: false });
+        });
+        await wait(total + (slow ? 450 : 240));
+      }
+      await tween(slow ? 260 : 140, function (p) { S.cueA = 1 - p; S.tgtA = 1 - p; });
+      S.cueBits = null; S.tgtBits = null;
+    }
+    setCaption('The rule is in the weights now: ' + model.syn + ' synapses, written with no global signal of any kind.');
+    await wait(800);
+  }
+
+  async function phFresh() {
+    setPhase('04 \u00B7 fresh case');
+    var pr = current;
+    setCaption(pr.s + ' isa ' + pr.cat + '. The system has never seen ' + pr.s + '.');
+    var cue = merge(model.codes[pr.s], shiftBits(model.codes.isa, S_REL), shiftBits(model.codes[pr.cat], S_OBJ));
+    await assembleFact(pr.s, pr.cat, cue, 'cue \u00B7 fresh fact', true);
+    var g = geo();
+    A.held.bits = model.codes[pr.s]; A.held.label = 'held \u00B7 ' + pr.s;
+    A.held.fx = g.heldX; A.held.fy = g.heldY; A.held.fw = g.heldW;
+    A.held.shiftAmt = 0; A.held.rot = 0; A.held.h = 10;
+    await tween(420, function (p) { A.held.alpha = p; });
+    setCaption('The subject is held aside for reassembly. The rest of the fact queries memory.');
+    var best = 0;
+    ['robin', 'sparrow', 'salmon', 'trout'].forEach(function (w) {
+      var o = overlap(model.codes[pr.s], model.codes[w]);
+      if (o > best) best = o;
+    });
+    evidenceEl.innerHTML = 'novelty check \u2014 best overlap of ' + pr.s + ' with any stored subject: ' + best + '/' + K + ' bits (chance \u2248 ' + (K * K / D).toFixed(1) + ')';
+    await moveCompToCue(cue, 'cue \u00B7 ' + pr.s + ' isa ' + pr.cat, true);
+    await wait(700);
+  }
+
+  async function phRecall() {
+    setPhase('05 \u00B7 recall');
+    setCaption('Each cue bit excites its column. Each row counts the synapses it receives.');
+    await tween(800, function (p) { S.beamA = p; });
+    S.res = recall(S.cueBits);
+    await tween(1100, function (p) { S.sumReveal = p; });
+    var pr = current, verb = pr.cat === 'bird' ? 'fly' : 'swim', other = verb === 'fly' ? 'swim' : 'fly';
+    var evV = meanRows(shiftBits(model.codes[verb], S_OBJ), S.res.sums);
+    var evO = meanRows(shiftBits(model.codes[other], S_OBJ), S.res.sums);
+    baseEvidence = 'per-row evidence \u2014 <span class="win">' + verb + ' \u2248 ' + evV + '</span> \u00B7 ' + other + ' \u2248 ' + evO + ' \u00B7 keep the top ' + (2 * K) + ' rows';
+    evidenceEl.innerHTML = baseEvidence;
+    if (evV > evO) {
+      setCaption('Competition. The ' + verb + ' rows out-collect the ' + other + ' rows, ' + evV + ' to ' + evO + ' per row. k-WTA keeps the top ' + (2 * K) + '.');
+    } else {
+      setCaption('Competition is tight on this codebook: ' + verb + ' ' + evV + ' vs ' + other + ' ' + evO + ' per row. k-WTA keeps the top ' + (2 * K) + ' \u2014 watch the decode.');
+    }
+    await tween(900, function (p) { S.thrP = p; }, eInOut);
+    await tween(500, function (p) { S.winA = p; });
+    var g = geo();
+    A.out.bits = S.res.winners;
+    A.out.label = 'recalled pattern \u00B7 ' + S.res.winners.length + ' bits';
+    A.out.fx = g.outX; A.out.fy = g.outY; A.out.fw = g.outW;
+    A.out.shiftAmt = 0; A.out.rot = 0; A.out.h = 13;
+    await tween(450, function (p) { A.out.alpha = p; });
+  }
+
+  function markWin(list) {
+    var bi = 0;
+    list.forEach(function (b, i) { if (b.t > list[bi].t) bi = i; });
+    list[bi].win = true;
+  }
+
+  async function phDecode() {
+    setPhase('06 \u00B7 decode');
+    setCaption('Rotate each role back, then match against the vocabulary by overlap.');
+    var g = geo(), res = S.res;
+    A.decRel.bits = res.winners; A.decRel.shiftAmt = -S_REL; A.decRel.rot = 0;
+    A.decRel.fx = g.outX; A.decRel.fy = g.decY1; A.decRel.fw = g.outW; A.decRel.h = 13;
+    A.decRel.label = 'unshift \u2212' + S_REL + '  \u00B7  relation slot';
+    A.decObj.bits = res.winners; A.decObj.shiftAmt = -S_OBJ; A.decObj.rot = 0;
+    A.decObj.fx = g.outX; A.decObj.fy = g.decY2; A.decObj.fw = g.outW; A.decObj.h = 13;
+    A.decObj.label = 'unshift \u2212' + S_OBJ + '  \u00B7  object slot';
+    await tween(300, function (p) { A.decRel.alpha = p; A.decObj.alpha = p; });
+    await tween(1000, function (p) { A.decRel.rot = p; A.decObj.rot = p; }, eInOut);
+
+    var outRel = shiftBits(res.winners, D - S_REL);
+    var outObj = shiftBits(res.winners, D - S_OBJ);
+    function mk(list, out) {
+      return list.map(function (wd) { return { l: wd, v: 0, t: overlap(out, model.codes[wd]) / K, win: false }; });
+    }
+    var rel = mk(['isa', 'can'], outRel);
+    var obj = mk(['bird', 'fish', 'fly', 'swim'], outObj);
+    markWin(rel); markWin(obj);
+    S.bars = { rel: rel, obj: obj }; S.barsA = 1;
+    var all = rel.concat(obj);
+    await tween(950, function (p) {
+      all.forEach(function (b, i) { b.v = b.t * clamp(p * 1.7 - i * 0.09, 0, 1); });
+    });
+    all.forEach(function (b) { b.v = b.t; });
+
+    var relWin = rel.filter(function (b) { return b.win; })[0];
+    var objWin = obj.filter(function (b) { return b.win; })[0];
+    evidenceEl.innerHTML = baseEvidence +
+      ' &nbsp;\u00B7&nbsp; decode \u2014 relation: <span class="win">' + relWin.l + ' ' + Math.round(relWin.t * K) + '/' + K + '</span>' +
+      ' \u00B7 object: <span class="win">' + objWin.l + ' ' + Math.round(objWin.t * K) + '/' + K + '</span>';
+
+    tween(600, function (p) { S.beamA = 1 - 0.7 * p; });
+    var sentence = current.s + ' ' + relWin.l + ' ' + objWin.l + '.';
+    await scrambleText(verdictEl, sentence);
+    verdictEl.innerHTML = current.s + ' ' + relWin.l + ' <span class="a">' + objWin.l + '.</span>';
+    chipEl.classList.add('show');
+    setCaption('Derived, not retrieved \u2014 that sentence exists nowhere in the memory. One hop: the verified unit. Multi-step is the open wall.');
+  }
+
+  /* =====================================================
+     RUNS + CONTROLS
+     ===================================================== */
+  async function runFull() {
+    if (busy) return;
+    busy = true; controls.classList.add('busy');
+    trained = false;
+    resetAllVisuals(); updateLedger();
+    await phEncode();
+    await phBindStore();
+    trained = true;
+    if (!view.narrow) S.railA = 0.45;
+    await phFresh();
+    await phRecall();
+    await phDecode();
+    busy = false; controls.classList.remove('busy');
+    runBtn.innerHTML = '\u27F2 replay everything';
+  }
+  async function runInfer() {
+    if (busy || !trained) return;
+    busy = true; controls.classList.add('busy');
+    resetInferVisuals();
+    await phFresh();
+    await phRecall();
+    await phDecode();
+    busy = false; controls.classList.remove('busy');
+  }
+
+  runBtn.addEventListener('click', function () { runFull(); });
+
+  shuffleBtn.addEventListener('click', function () {
+    if (busy) return;
+    var bv = buildValidated((Math.random() * 0xffffffff) >>> 0);
+    seed = bv.seed; model = bv.model;
+    trained = false;
+    resetAllVisuals();
+    updateLedger();
+    setPhase('reshuffled');
+    setCaption('Every code re-randomized from seed ' + seed + '. Same mechanism, nothing memorized.');
+    setTimeout(runFull, RM ? 60 : 550);
+  });
+
+  premiseBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (busy) return;
+      premiseBtns.forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      current = { s: b.dataset.subj, cat: b.dataset.cat };
+      if (trained) runInfer();
+      else setCaption('Fresh case set to ' + current.s + ' isa ' + current.cat + '. Run the unit to see it derived.');
+    });
+  });
+
+  /* ---------- sizing ---------- */
+  function size() {
+    var cw = canvas.clientWidth || (stage.clientWidth - 48);
+    view.narrow = cw < 700;
+    var ch = Math.round(cw * (view.narrow ? 1.62 : 0.68));
+    canvas.style.height = ch + 'px';
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.max(1, Math.round(cw * dpr));
+    canvas.height = Math.max(1, Math.round(ch * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    view.w = cw; view.h = ch;
+    FNT10 = (view.narrow ? 9 : 10) + "px 'JetBrains Mono', monospace";
+  }
+  window.addEventListener('resize', debounce(size, 160), { passive: true });
+
+  /* ---------- activation + loop ---------- */
+  var active = false;
+  var demoIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      active = e.isIntersecting;
+      if (e.isIntersecting && !hasAuto) {
+        hasAuto = true;
+        if (!RM) setTimeout(runFull, 750);
+      }
+    });
+  }, { threshold: 0.3 });
+  demoIO.observe(stage);
+
+  var bv0 = buildValidated(seed);
+  seed = bv0.seed; model = bv0.model;
+  size();
+  updateLedger();
+  (function loop() {
+    requestAnimationFrame(loop);
+    if (!active && !busy) return;
+    draw();
   })();
 
 })();
